@@ -34,7 +34,8 @@ for user in usersCol.find():
 
     for item in responses:
         #check for batch and frame
-        if responses['type'] == 'rating':
+	qType = str(item['type'])
+        if qType == 'rating':
             batch = int(item['batch'])
             frame = int(item['frames'])
             rat = item['ratings']  
