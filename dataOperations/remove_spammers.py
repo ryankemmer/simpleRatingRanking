@@ -63,7 +63,7 @@ if(args > 1):
     if(sys.argv[2] == "delete"):
 
         for user in usersRemove:
-            remUser = usersCol.find({'user' : user})
+            remUser = usersCol.find_one({'user' : user})
 
             userName_rem = remUser['user']
             indexes_rem = remUser['indexes']
