@@ -77,10 +77,10 @@ if(args > 1):
         
                 batchesCol.update_one({'size': indexes_rem[i][0], 'number': indexes_rem[i][1]}, update)
                         
-                responsesCol.delete_many({'user' : userName})
-                usersCol.delete_one({'user' : userName})
+                responsesCol.delete_many({'user' : userName_rem})
+                usersCol.delete_one({'user' : userName_rem})
         
-                userRemoveCount+=1
+            userRemoveCount+=1
 
 
 print("Users Removed: " + str(userRemoveCount))
