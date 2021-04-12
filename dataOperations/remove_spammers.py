@@ -34,11 +34,15 @@ for user in usersCol.find():
 
     for item in responses:
         #check for batch and frame
-	qType = str(item['type'])
+        qType = str(item['type'])
         if qType == 'rating':
             batch = int(item['batch'])
             frame = int(item['frames'])
-            rat = item['ratings']  
+            ratString = item['estimates']  
+
+            rat = []
+            for i in ratString:
+                rat.append(int(float(filter(lambda x: x.isdigit(), i))))
 
             # For A Test     
             #if any(x < 10 for x in rat) or any(x>170.05 for x in rat) or np.std(rat) > 36.82:
