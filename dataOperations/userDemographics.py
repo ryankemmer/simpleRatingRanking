@@ -18,7 +18,8 @@ batchesCol = db['batches']
 usersArray = []
 
 for user in usersCol.find():
-    usersArray.append(user)
+    surveyResults = user['surveyResults']
+    usersArray.append(surveyResults)
 
 rightNow = datetime.datetime.today().strftime('%m-%d-%Y')
 file_name = 'DEMOGRAPHICS' + rightNow + dbase + ".json" 
