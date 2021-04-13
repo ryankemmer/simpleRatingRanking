@@ -27,32 +27,29 @@ for user in usersCol.find():
     key2pay = user["key2pay"]
     userName = user["user"]
     indexes = user["indexes"]
+    questions = user['questions']
 
-    #iterate through user responses
+    #get the users responses for each question 
+    for i in range(1,5):
+        ranking = []
+        rat = []
 
-    responses = db.responses.find({'user': userName})
+        rankResponse = responsesCol.find_one({"user": userName, "collection": str(i), "type": "ranking"})
+        batch = int(rankResponse["batch"])
+        frames = int(rankResponse["frames"])
 
-    ratings = []
-    for item in responses:
-        #check for batch and frame
-        qType = str(item['type'])
-        if qType == 'rating':
-            batch = int(item['batch'])
-            frame = int(item['frames'])
-            ratString = item['estimates']  
-            
-            rat = []
-            for i in ratString:
-                rat.append(int(float(filter(lambda x: x.isdigit(), i))))
-
-            # For A Test     
-            #if any(x < 10 for x in rat) or any(x>170.05 for x in rat) or np.std(rat) > 36.82:
-            #    print(rat, rat)
-
-            # For B Test     
-            if any(x < 2 for x in rat) or any(x>300 for x in rat) or np.std(rat) > 100.08:
-                print(rat)
-                bad = True
+		#get pictures
+        for j in range(frames):
+			
+            ratingResponse = responsesCol.find_one({"user": userName, "picture": str(j), "collection": str(i), "type": "rating"})
+            ratingResponse = ratingResponse["estimate"]
+            ratingResponse = int(float(ratingResponse))
+            rat.append(ratingResponse)
+		
+        #For A Test     
+        if any(x < 10 for x in rat) or any(x>170.05 for x in rat) or np.std(rat) > 36.82:
+            print(rat)
+            bad = True
 
     if bad == True:
         usersRemove.append(userName)
