@@ -63,8 +63,8 @@ for user in usersCol.find():
 
 		#get ratings
 		ratingResponse = responsesCol.find_one({"user": userName, "collection": str(i), "type": "rating"})
-		ratingResponse = ratingResponse["estimates"]
 		ratingTime = ratingResponse["time"]
+		ratingResponse = ratingResponse["estimates"]
 
 		for i in ratingResponse:
 			rating.append(int(float(filter(lambda x: x.isdigit(), i))))
