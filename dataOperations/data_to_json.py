@@ -40,6 +40,7 @@ for user in usersCol.find():
 		frames = int(rankResponse["frames"])
         
 		rank = rankResponse["ranking"]
+		rankingTime = rankResponse["time"]
 		ranking = [int(x) for x in rank]
 		rank_copy = ranking[:]
 		
@@ -63,6 +64,8 @@ for user in usersCol.find():
 		#get ratings
 		ratingResponse = responsesCol.find_one({"user": userName, "collection": str(i), "type": "rating"})
 		ratingResponse = ratingResponse["estimates"]
+		ratingTime = ratingResponse["time"]
+
 		for i in ratingResponse:
 			rating.append(int(float(filter(lambda x: x.isdigit(), i))))
 
@@ -79,6 +82,8 @@ for user in usersCol.find():
 			"frames": frames,
  			"rankings": ranking,
 			"ratings": decoded_ratings,
+			"rankingTime": rankingTime,
+			"ratingTime": ratingTime, 
 			"groundtruth": questionOrder
 		}
 
