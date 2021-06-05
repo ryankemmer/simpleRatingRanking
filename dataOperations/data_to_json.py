@@ -40,6 +40,8 @@ for user in usersCol.find():
 		frames = int(rankResponse["frames"])
         
 		rank = rankResponse["ranking"]
+		rankingTime = int(rankResponse["time"])
+
 		ranking = [int(x) for x in rank]
 		#Note: change rank to format
 		pos = 1
@@ -49,12 +51,15 @@ for user in usersCol.find():
 			pos += 1 
 
 		#get pictures
+		ratingTime = 0
 		for j in range(frames):
 			
 			ratingResponse = responsesCol.find_one({"user": userName, "picture": str(j), "collection": str(i), "type": "rating"})
 			ratingResponse = ratingResponse["estimate"]
 			ratingResponse = int(float(ratingResponse))
+			ratingTimeIndividual = int(ratingResponse["time"])
 			rating.append(ratingResponse)
+			ratingTime += ratingTimeIndividual
 
 		#sort ratings in order of ground truth
 		for k in range(1, len(questionOrder)):
@@ -74,7 +79,9 @@ for user in usersCol.find():
 			"frames": frames,
  			"rankings": ranking,
 			"ratings": rating,
-			"groundtruth": questionOrder
+			"groundtruth": questionOrder,
+			"ratingTime": ratingTime,
+			"rankingTime": rankingTime
 		}
 
 		dataArray.append(question)
