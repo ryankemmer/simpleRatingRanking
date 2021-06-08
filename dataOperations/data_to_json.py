@@ -55,9 +55,10 @@ for user in usersCol.find():
 		for j in range(frames):
 			
 			ratingResponse = responsesCol.find_one({"user": userName, "picture": str(j), "collection": str(i), "type": "rating"})
+			ratingTimeIndividual = int(ratingResponse["time"])
 			ratingResponse = ratingResponse["estimate"]
 			ratingResponse = int(float(ratingResponse))
-			ratingTimeIndividual = int(ratingResponse["time"])
+			
 			rating.append(ratingResponse)
 			ratingTime += ratingTimeIndividual
 
