@@ -12,7 +12,7 @@
     "d3": "^5.11.0",
     "d3-simple-slider": "^1.5.4",
     "debug": "^2.6.9",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "git": "^0.1.5",
     "http-errors": "^1.6.3",
     "mongodb": "^3.3.2",
